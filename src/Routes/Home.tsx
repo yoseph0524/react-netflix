@@ -7,6 +7,7 @@ import { useState } from "react";
 
 const Wrapper = styled.div`
   background: black;
+  padding-bottom: 200px;
 `;
 
 const Loader = styled.div`
@@ -28,7 +29,7 @@ const Banner = styled.div<{ bgPhoto: string }>`
 `;
 
 const Title = styled.h2`
-  font-size: 60px;
+  font-size: 68px;
   margin-bottom: 20px;
 `;
 
@@ -48,34 +49,46 @@ const Row = styled(motion.div)`
   grid-template-columns: repeat(6, 1fr);
   position: absolute;
   width: 100%;
-  bottom: -40px;
 `;
 
 const Box = styled(motion.div)<{ bgPhoto: string }>`
   background-color: white;
   background-image: url(${(props) => props.bgPhoto});
-  height: 130px;
-  color: red;
   background-size: cover;
   background-position: center center;
+  height: 200px;
   font-size: 66px;
-  &: first-child {
+
+  &:first-child {
     transform-origin: center left;
   }
-  &: last-child {
+  &:last-child {
     transform-origin: center right;
+  }
+`;
+
+const Info = styled(motion.div)`
+  padding: 10px;
+  background-color: ${(props) => props.theme.black.lighter};
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  h4 {
+    text-align: center;
+    font-size: 18px;
   }
 `;
 
 const rowVariants = {
   hidden: {
-    x: window.outerWidth + 10,
+    x: window.outerWidth + 5,
   },
   visible: {
     x: 0,
   },
   exit: {
-    x: -window.outerWidth - 10,
+    x: -window.outerWidth - 5,
   },
 };
 
@@ -85,8 +98,23 @@ const boxVariants = {
   },
   hover: {
     scale: 1.3,
-    y: -50,
-    transition: { delay: 0.1, duration: 0.3, type: "tween" },
+    y: -80,
+    transition: {
+      delay: 0.5,
+      duaration: 0.1,
+      type: "tween",
+    },
+  },
+};
+
+const infoVariants = {
+  hover: {
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+      duaration: 0.1,
+      type: "tween",
+    },
   },
 };
 
@@ -99,7 +127,7 @@ function Home() {
   );
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
-  const increaseIndex = () => {
+  const incraseIndex = () => {
     if (data) {
       if (leaving) return;
       toggleLeaving();
@@ -116,7 +144,7 @@ function Home() {
       ) : (
         <>
           <Banner
-            onClick={increaseIndex}
+            onClick={incraseIndex}
             bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}
           >
             <Title>{data?.results[0].title}</Title>
@@ -137,13 +165,17 @@ function Home() {
                   .slice(offset * index, offset * index + offset)
                   .map((movie) => (
                     <Box
-                      variants={boxVariants}
+                      key={movie.id}
                       whileHover="hover"
                       initial="normal"
+                      variants={boxVariants}
                       transition={{ type: "tween" }}
-                      key={movie.id}
                       bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
-                    />
+                    >
+                      <Info variants={infoVariants}>
+                        <h4>{movie.title}</h4>
+                      </Info>
+                    </Box>
                   ))}
               </Row>
             </AnimatePresence>
