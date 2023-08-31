@@ -9,8 +9,10 @@ declare module "styled-components" {
       lighter: string;
     };
     white: {
-      darker: string;
       lighter: string;
+      darker: string;
     };
   }
 }
+
+declare module "*.png";
