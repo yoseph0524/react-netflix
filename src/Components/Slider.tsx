@@ -38,17 +38,19 @@ const ArrowBtn = styled(motion.div)<{ mobile: number }>`
   color: #fff;
   border-radius: 50%;
   background-color: rgba(0, 0, 0, 0.5);
-  opacity: ${(props) => props.mobile};
+  opacity: 0.5;
   transition: all 0.3s;
   z-index: 90;
   cursor: pointer;
   &:hover {
     color: #000;
     background-color: #fff;
+    opacity: 1;
   }
   &:blur {
     color: #fff;
     background-color: #000;
+    opacity: 0.5;
   }
   svg {
     width: 2.8rem;

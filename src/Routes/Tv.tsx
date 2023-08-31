@@ -1,6 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
-import { getPopularTvShows, IData, IGetDataResult } from "../api";
+import {
+  getAiringToday,
+  getPopularTvShows,
+  getTopRated,
+  IData,
+  IGetDataResult,
+  LIST_TYPE,
+} from "../api";
 import Banner from "../Components/Banner";
 import Sliders from "../Components/Slider";
 
@@ -26,10 +33,17 @@ const SliderArea = styled.div`
 function Tv() {
   const { data: tvShowList, isLoading: tvShowLoading } =
     useQuery<IGetDataResult>(
-      ["tvShowList", "popularTvShows"],
+      [LIST_TYPE[4], "popularTvShows"],
       getPopularTvShows
     );
-
+  const { data: airingTodayList } = useQuery<IGetDataResult>(
+    [LIST_TYPE[5], "airTodayTv"],
+    getAiringToday
+  );
+  const { data: topRatedList } = useQuery<IGetDataResult>(
+    [LIST_TYPE[6], "topRatedTv"],
+    getTopRated
+  );
   return (
     <Wrapper>
       {tvShowLoading ? (
@@ -46,6 +60,20 @@ function Tv() {
               data={tvShowList as IGetDataResult}
               title={"POPULAR TV SHOWS"}
               listType={"tvShowList"}
+              menuName={"tv"}
+              mediaType={"tv"}
+            />
+            <Sliders
+              data={airingTodayList as IGetDataResult}
+              title={"AIRING TODAY"}
+              listType={"airingTodayList"}
+              menuName={"tv"}
+              mediaType={"tv"}
+            />
+            <Sliders
+              data={topRatedList as IGetDataResult}
+              title={"TOP RATED"}
+              listType={"topRatedList"}
               menuName={"tv"}
               mediaType={"tv"}
             />

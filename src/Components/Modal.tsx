@@ -342,6 +342,7 @@ export default function Modal({
 }: IModal) {
   const navigate = useNavigate();
   const modalMatch = useMatch(`/${menuName}/${listType}/:id`);
+  console.log(modalMatch);
   const onOverlayClicked = () => {
     if (menuName === "home") menuName = "";
 
@@ -429,7 +430,7 @@ export default function Modal({
                   <ModalInfoItem datas={getYear(data?.release_date || "")} />
                   <ModalInfoItem datas={getYear(data?.first_air_date || "")} />
                   <ModalInfoItem
-                    datas={data?.runtime ? `${data?.runtime}분` : ""}
+                    datas={data?.runtime ? `${data?.runtime}m` : ""}
                   />
                   <ModalInfoItem datas={getGenreToString(data?.genres || [])} />
                   {data?.vote_average ? (
@@ -467,7 +468,7 @@ export default function Modal({
                   {data?.networks && data?.networks.length > 0 ? (
                     <>
                       <ModalItem>
-                        <ItemTitle>채널 </ItemTitle>
+                        <ItemTitle>Channel </ItemTitle>
                         <ItemValue>
                           {data?.networks.map((n) => (
                             <img

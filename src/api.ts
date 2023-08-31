@@ -5,7 +5,10 @@ export const LIST_TYPE = [
   "nowPlaying",
   "upcomingMovies",
   "popularMovies",
+  "topRatedMovies",
   "tvShow",
+  "airingToday",
+  "topRatedtc",
 ];
 
 export interface IData {
@@ -73,8 +76,26 @@ export function getUpcomingMovies() {
   );
 }
 
+export function getTopRatedMovies() {
+  return fetch(`${BASE_PATH}/movie/top_rated?${TAIL_PATH}`).then((response) =>
+    response.json()
+  );
+}
+
 export function getPopularTvShows() {
   return fetch(`${BASE_PATH}/tv/popular?${TAIL_PATH}`).then((response) =>
+    response.json()
+  );
+}
+
+export function getAiringToday() {
+  return fetch(`${BASE_PATH}/tv/airing_today?${TAIL_PATH}`).then((response) =>
+    response.json()
+  );
+}
+
+export function getTopRated() {
+  return fetch(`${BASE_PATH}/tv/top_rated?${TAIL_PATH}`).then((response) =>
     response.json()
   );
 }

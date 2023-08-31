@@ -4,6 +4,7 @@ import {
   getNowPlayingMovies,
   getPopularMovies,
   getPopularTvShows,
+  getTopRatedMovies,
   getUpcomingMovies,
   IData,
   IGetDataResult,
@@ -47,9 +48,9 @@ function Home() {
     getPopularMovies
   );
 
-  const { data: tvShowList } = useQuery<IGetDataResult>(
-    [LIST_TYPE[3], "popularTvShows"],
-    getPopularTvShows
+  const { data: topRatedList } = useQuery<IGetDataResult>(
+    [LIST_TYPE[3], "topRatedMovies"],
+    getTopRatedMovies
   );
 
   return (
@@ -86,10 +87,10 @@ function Home() {
               menuName={"home"}
             />
             <Sliders
-              data={tvShowList as IGetDataResult}
-              title={"POPULAR TV SHOWS"}
+              data={topRatedList as IGetDataResult}
+              title={"TOP RATED"}
               listType={LIST_TYPE[3]}
-              mediaType={"tv"}
+              mediaType={"movie"}
               menuName={"home"}
             />
           </SliderArea>
